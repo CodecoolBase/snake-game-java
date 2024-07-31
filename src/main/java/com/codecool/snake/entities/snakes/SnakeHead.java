@@ -6,11 +6,9 @@ import com.codecool.snake.Utils;
 import com.codecool.snake.entities.Interactable;
 import com.codecool.snake.entities.enemies.Enemy;
 import com.codecool.snake.entities.powerups.SimplePowerUp;
-
 import javafx.geometry.Point2D;
 
-
-public class SnakeHead extends GameEntity implements Interactable {
+public class SnakeHead extends GameEntity implements SnakePart, Interactable {
     private static final float turnRate = 2;
     private Snake snake;
 
@@ -39,18 +37,26 @@ public class SnakeHead extends GameEntity implements Interactable {
 
     @Override
     public void apply(GameEntity entity) {
-        if(entity instanceof Enemy){
-            System.out.println(getMessage());
+        if (entity instanceof Enemy) {
             snake.changeHealth(((Enemy) entity).getDamage());
         }
-        if(entity instanceof SimplePowerUp){
-            System.out.println(getMessage());
-            snake.addPart(4);
+        if (entity instanceof SimplePowerUp) {
+            snake.addParts(4);
         }
     }
 
     @Override
+    public void updatePosition(Point2D newPosition) {
+        setPosition(newPosition);
+    }
+
+    @Override
+    public Point2D getPosition() {
+        return new Point2D(getX(), getY());
+    }
+
+    @Override
     public String getMessage() {
-        return "IMMA SNAEK HED! SPITTIN' MAH WENOM! SPITJU-SPITJU!";
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
